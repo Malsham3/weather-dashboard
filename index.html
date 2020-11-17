@@ -26,7 +26,7 @@
         <div class="row justify-content-between mt-5">
 
             <!-- search history section -->
-            <div class="col-3" style="background-color: #e3f2fd;">
+            <div class="col-3">
 
                 <div class="card" style="width: 18rem;">
                     <!-- search history section header -->
@@ -37,9 +37,9 @@
                     <!-- add src with link to each li go back to forecast page per city. -->
                     <ul id="search-history" class="list-group list-group-flush">
                         <!-- use $("#city-number").text() to access/change inner value in each city -->
-                        <li id = "city-1" class="list-group-item city-1">Phoenix</li>
-                        <li id = "city-2" class="list-group-item">Los Angeles</li>
-                        <li id = "city-3" class="list-group-item city-3">Houston</li>
+                        <li id="city-1" class="list-group-item city-1">Phoenix</li>
+                        <li id="city-2" class="list-group-item">Los Angeles</li>
+                        <li id="city-3" class="list-group-item city-3">Houston</li>
                         <li id="city-4" class="list-group-item">New York</li>
                         <li id="city-5" class="list-group-item">Chicago</li>
                     </ul>
@@ -48,15 +48,38 @@
 
             <!-- Right culomn to view city name, today's cast, 5 day cast. -->
             <div class="col-8" style="background-color: #e3f2fd;">
-                <h1 id = "city-name" class="display-4">City Name</h1>
-                <p id = "current-temp">Temp: </p>
-                <p id = "current-humidity">Humidity: </p>
-                <p id = "current-windspeed">Wind Speed: </p>
+                <h1 id="city-name" class="display-4">City Name</h1>
+                <p id="current-temp">Temp: </p>
+                <p id="current-humidity">Humidity: </p>
+                <p id="current-windspeed">Wind Speed: </p>
                 <p>UV Index:
-                <span id= "current-uv" class="badge badge-danger">LOL</span> 
+                    <span id="current-uv" class="badge"></span>
                 </p>
-                
 
+            </div>
+        </div>
+
+        <!-- Five Day forcast -->
+        <div class="row justify-content-center mt-3">
+            <div class="col-11" style="background-color: #e3f2fd;">
+                <h2 id="city-name">5-Day Forecast</h2>
+
+               <!-- Card div for each day. MAKE FIVE FOR EACH COL DYNAMICALLY IN JS --> 
+                <div class="row row-cols-1 row-cols-md-2">
+                    <div class="col mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <!-- Day 1 -->
+                                <h5 id = "day-1" class="card-title">Day 1</h5>
+                                <img src="" class="card-img-top" alt="...">
+                                <p class="card-text"></p>
+                                <p id="temp1" class = "card-text">Temp: </p>
+                                <p id="humidity1" class = "card-text">Humidity: </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
             </div>
         </div>
 
