@@ -8,13 +8,15 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- local css file -->
+    <link href="style.css">
 </head>
 
 <body>
 
     <div class="container">
         <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-            <a class="navbar-brand text-secondary font-weight-light">Weather Dashboard</a>
+            <a class="navbar-brand text-secondary">Weather Dashboard</a>
             <form class="form-inline">
                 <input class="form-control mr-sm-2" type="search" placeholder="City Name" aria-label="Search">
                 <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
@@ -35,11 +37,9 @@
                     <!-- add src with link to each li go back to forecast page per city. -->
                     <ul id="search-history" class="list-group list-group-flush">
                         <!-- use $("#city-number").text() to access/change inner value in each city -->
-                        <li id="city-1" class="list-group-item city-1">Phoenix</li>
-                        <li id="city-2" class="list-group-item">Los Angeles</li>
-                        <li id="city-3" class="list-group-item city-3">Houston</li>
-                        <li id="city-4" class="list-group-item">New York</li>
-                        <li id="city-5" class="list-group-item">Chicago</li>
+                        <!-- render using JS -->
+                        <li id="city-1" class="list-group-item">Phoenix</li>
+
                     </ul>
                 </div>
             </div>

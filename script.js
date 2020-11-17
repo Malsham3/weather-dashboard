@@ -36,37 +36,65 @@ function getWeatherStats(city) {
     }).then(function (weather) {
         $("#city-name").text(weather.name);
         $("#current-temp").text("Temp(F): " + kelvinToF(weather.main.temp) + " F");
-        $("#current-humidity").text("Humidity: " + weather.main.humidity+ "%");
+        $("#current-humidity").text("Humidity: " + weather.main.humidity + "%");
         $("#current-windspeed").text("Wind: " + weather.wind.speed + " MPH");
 
         // to get the UV index, make a seperate call using latitude and longitude
         var lon = weather.coord.lon;
         var lat = weather.coord.lat;
         const uvQuery = `https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=${APIkey}`;
-    
+
         $.ajax({
             method: "GET",
             url: uvQuery,
         }).then(function (location) {
             var uvIndex = location.value;
             $("#current-uv").text(uvIndex);
-            if(uvIndex <=2){
+            if (uvIndex <= 2) {
                 $("#current-uv").addClass("badge-success");
-            }else if(uvIndex <8){
+            } else if (uvIndex < 8) {
                 $("#current-uv").addClass("badge-warning");
-            }else{
+            } else {
                 $("#current-uv").addClass("badge-danger");
             }
         });
     });
 
+    // https://api.openweathermap.org/data/2.5/weather?q=Phoenix,USA&appid=f2433f0a4f99b3452dffd4c97403b276
 }
 
-// https://api.openweathermap.org/data/2.5/weather?q=Phoenix,USA&appid=f2433f0a4f99b3452dffd4c97403b276
 
 // Convert from Kelvin to Fahrenheit
 function kelvinToF(k) {
     return ((k - 273.15) * 1.8 + 32).toFixed(2);
+}
+
+//for loop that will add content to page
+for (let i = 0; i < 6; i++) {
+    $("#search-history").append(buildSearchedCities(i));
+}
+
+
+function buildSearchedCities(city) {
+    const searchedCity = $("<li>")
+        .addClass("list-group-item")
+        .attr("id", `city-${city}`)
+    
+    return searchedCity;
+
+}
+
+function renderForecastCards() {
+    const dayCard = $("<div>")
+        .addClass("col mb-4")
+
+    const cardContainer = $("<div>")
+        .addClass("card")
+
+    const cardBody = $("<div>")
+        .addClass("")
+
+    return dayCard
 }
 
 getWeatherStats("Phoenix,USA");
