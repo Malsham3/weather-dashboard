@@ -1,9 +1,9 @@
-// obtain API key and research about the paramemters.
+// obtain API key and research about the paramemters. DONE
 //access the API in the script and make sure it's working properly.
-// Use ajax to retreive data.
-// look up 
-//access time date using linux // refer to previous homework
-//create render cards for 5 day forecast
+// Use ajax to retreive data. DONE 
+// get all the stats. DONE
+//access time date using linux // refer to previous homework DONE 
+//create render cards for 5 day forecast 
 //create render current city card forecast
 //create search history section with rows that store previously stored cities " use local storage to save prev searched, wont disappear after page load"
 //Search field with a button, and event listener.
@@ -23,6 +23,7 @@ $("#today-date").text(today);
 //obtained API key
 const APIkey = "f2433f0a4f99b3452dffd4c97403b276";
 
+//following function will get access the database and obtain all needed information
 function getWeatherStats(city) {
 
     //URL used to query the database
@@ -33,7 +34,7 @@ function getWeatherStats(city) {
         method: "GET",
         url: query,
     }).then(function (weather) {
-        $("#city-name").text("City: " + weather.name);
+        $("#city-name").text(weather.name);
         $("#current-temp").text("Temp(F): " + kelvinToF(weather.main.temp) + " F");
         $("#current-humidity").text("Humidity: " + weather.main.humidity+ "%");
         $("#current-windspeed").text("Wind: " + weather.wind.speed + " MPH");
@@ -50,7 +51,11 @@ function getWeatherStats(city) {
             var uvIndex = location.value;
             $("#current-uv").text(uvIndex);
             if(uvIndex <=2){
-                
+                $("#current-uv").addClass("badge-success");
+            }else if(uvIndex <8){
+                $("#current-uv").addClass("badge-warning");
+            }else{
+                $("#current-uv").addClass("badge-danger");
             }
         });
     });
