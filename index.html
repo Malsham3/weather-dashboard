@@ -5,20 +5,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Dashboard</title>
+    
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 
 <body>
     <!-- Jquery library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    
+    <div class="container">
+        <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+            <a class="navbar-brand text-secondary font-weight-light">Weather Dashboard</a>
+            <form class="form-inline">
+              <input class="form-control mr-sm-2" type="search" placeholder="City Name" aria-label="Search">
+              <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </nav>
+
+        <div class="row justify-content-between mt-5">
+
+            <!-- search history section -->
+            <div class="col-4" style="background-color: #e3f2fd;">
+                <div class="card" style="width: 18rem;">
+                    <!-- search history section header -->
+                    <div class="card-header">
+                      <!-- Search History -->
+                    </div>
+
+                    <ul id = "search-history" class="list-group list-group-flush">
+                      <li class="list-group-item">Phoenix</li>
+                      <li class="list-group-item">Los Angeles</li>
+                      <li class="list-group-item">Houston</li>
+                    </ul>
+                  </div>
+            </div>
+
+            <!-- Right culomn to view city name, today's cast, 5 day cast. -->
+            <div class="col-7" style="background-color: #e3f2fd;">
+              One of three columns
+            </div>
+          </div>
+
+    </div>
+
+
     <script>
         //psuedo code
-        //Link Jquery, bootstrap, linux.. DONE 
+        //Link Jquery, bootstrap, luxon.. DONE 
         //Start with lay out using bootstrap to handle HTML part.
-        //      HTML: Header, two columns, two rows column1,,,,, 2 rows for column2. 
+        //      HTML: Header, 
+        //             two columns, 
+        //             two rows column1,,,,, 
+        //              2 rows for column2. 
         // obtain API key and research about the paramemters.
         //access the API in the script and make sure it's working properly.
         // Use ajax to retreive data.
