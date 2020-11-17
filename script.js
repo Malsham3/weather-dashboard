@@ -20,32 +20,48 @@
 const today = luxon.DateTime.local().toFormat("cccc D");
 $("#today-date").text(today);
 
-console.log(today);
+//obtained API key
+const APIkey = "f2433f0a4f99b3452dffd4c97403b276";
 
 function getWeatherStats(city) {
 
-    //obtained API key
-    const apikey = "2083ba99e548234fc6955819000762a8";
+    //URL used to query the database
+    const query = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIkey}`;
 
-    //query URL used  to pull data.
-    const query = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apikey}`;
     // Create an AJAX call to retrieve data
     $.ajax({
-      method: "GET",
-      url: query,
+        method: "GET",
+        url: query,
     }).then(function (weather) {
-      
+        $("#city-name").text("City: " + weather.name);
+        $("#current-temp").text("Temp(F): " + kelvinToF(weather.main.temp) + " F");
+        $("#current-humidity").text("Humidity: " + weather.main.humidity+ "%");
+        $("#current-windspeed").text("Wind: " + weather.wind.speed + " MPH");
+
+        // to get the UV index, make a seperate call using latitude and longitude
+        var lon = weather.coord.lon;
+        var lat = weather.coord.lat;
+        const uvQuery = `https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=${APIkey}`;
+    
+        $.ajax({
+            method: "GET",
+            url: uvQuery,
+        }).then(function (location) {
+            var uvIndex = location.value;
+            $("#current-uv").text(uvIndex);
+            if(uvIndex <=2){
+                
+            }
+        });
     });
+
 }
 
-// This is our API key. Add your own API key between the ""
-var APIKey = "";
+// https://api.openweathermap.org/data/2.5/weather?q=Phoenix,USA&appid=f2433f0a4f99b3452dffd4c97403b276
 
-// Here we are building the URL we need to query the database
-var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=Bujumbura,Burundi&appid=" + APIKey;
+// Convert from Kelvin to Fahrenheit
+function kelvinToF(k) {
+    return ((k - 273.15) * 1.8 + 32).toFixed(2);
+}
 
-// We then created an AJAX call
-$.ajax({
-    url: queryURL,
-    method: "GET"
-}).then(function (response) {
+getWeatherStats("Phoenix,USA");
