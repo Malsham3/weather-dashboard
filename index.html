@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Dashboard</title>
-    
+
     <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -18,34 +18,47 @@
         <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
             <a class="navbar-brand text-secondary font-weight-light">Weather Dashboard</a>
             <form class="form-inline">
-              <input class="form-control mr-sm-2" type="search" placeholder="City Name" aria-label="Search">
-              <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+                <input class="form-control mr-sm-2" type="search" placeholder="City Name" aria-label="Search">
+                <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
             </form>
         </nav>
 
         <div class="row justify-content-between mt-5">
 
             <!-- search history section -->
-            <div class="col-4" style="background-color: #e3f2fd;">
+            <div class="col-3" style="background-color: #e3f2fd;">
+
                 <div class="card" style="width: 18rem;">
                     <!-- search history section header -->
                     <div class="card-header">
-                      <!-- Search History -->
+                        Search History
                     </div>
 
-                    <ul id = "search-history" class="list-group list-group-flush">
-                      <li class="list-group-item">Phoenix</li>
-                      <li class="list-group-item">Los Angeles</li>
-                      <li class="list-group-item">Houston</li>
+                    <!-- add src with link to each li go back to forecast page per city. -->
+                    <ul id="search-history" class="list-group list-group-flush">
+                        <!-- use $("#city-number").text() to access/change inner value in each city -->
+                        <li id = "city-1" class="list-group-item city-1">Phoenix</li>
+                        <li id = "city-2" class="list-group-item">Los Angeles</li>
+                        <li id = "city-3" class="list-group-item city-3">Houston</li>
+                        <li id="city-4" class="list-group-item">New York</li>
+                        <li id="city-5" class="list-group-item">Chicago</li>
                     </ul>
-                  </div>
+                </div>
             </div>
 
             <!-- Right culomn to view city name, today's cast, 5 day cast. -->
-            <div class="col-7" style="background-color: #e3f2fd;">
-              One of three columns
+            <div class="col-8" style="background-color: #e3f2fd;">
+                <h1 id = "city-name" class="display-4">City Name</h1>
+                <p id = "current-temp">Temp: </p>
+                <p id = "current-humidity">Humidity: </p>
+                <p id = "current-windspeed">Wind Speed: </p>
+                <p>UV Index:
+                <span id= "current-uv" class="badge badge-danger">LOL</span> 
+                </p>
+                
+
             </div>
-          </div>
+        </div>
 
     </div>
 
