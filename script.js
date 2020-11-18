@@ -17,6 +17,9 @@
 //once done, edit styling / colors.
 
 
+// CONTINUE RENDERING!!!!!!!!! LINE 81 AND THE FOR LOOP
+
+
 const today = luxon.DateTime.local().toFormat("cccc D");
 $("#today-date").text(today);
 
@@ -84,16 +87,52 @@ function buildSearchedCities(city) {
 
 }
 
-function renderForecastCards() {
+//Below function will build 5-day forecast cards dynamically and append to HTML.
+function renderForecastCards(dayNum) {
+    
+    //create Day card
     const dayCard = $("<div>")
         .addClass("col mb-4")
+        .attr("id", `dayCard-${dayNum}`);
 
+    //card container that'll contain the body and stats divs.
     const cardContainer = $("<div>")
         .addClass("card")
+        .attr("id", `cardContainer-${dayNum}`);
 
+    //card body will contain date, image, temperature and humidity stats
     const cardBody = $("<div>")
         .addClass("")
+        .attr("id", `cardBody-${dayNum}`);
 
+    //Heading will display the date
+    const cardHeading = $("<h5>")
+        .addClass("card-title")
+        .attr("id", `heading-${dayNum}`);
+
+    //image will display depending on weather
+    const cardImg = $("<img>")
+        .addClass("card-img-top")
+        .attr({"src": "", "id": `img-${dayNum}`});
+
+    //Temperature of specified day
+    const dayTemp = $("<p>")
+        .addClass("card-text")
+        .text("Temp: ")
+        .attr("id", `temp-${dayNum}`);
+    
+    //Humidity of specified day
+    const dayHumidity = $("<p>")
+        .addClass("card-text")
+        .text("Humidity: ")
+        .attr("id", `humidity-${dayNum}`);
+
+    //appending stats inside of the card body, then to the container, then the card column div.
+    cardBody.append(cardHeading, cardImg, dayTemp, dayHumidity);
+    cardContainer.append(cardBody);
+    dayCard.append(cardContainer);
+
+    //return a fully built day card ready to display stats.
     return dayCard
 }
 
