@@ -16,42 +16,51 @@
 
 //once done, edit styling / colors.
 
+// api.openweathermap.org/data/2.5/forecast?q=Phoenix%AZ&appid=f2433f0a4f99b3452dffd4c97403b276
 
 // CONTINUE RENDERING!!!!!!!!! LINE 81 AND THE FOR LOOP
 
-
 const today = luxon.DateTime.local().toFormat("cccc D");
 $("#today-date").text(today);
+
+for (let i = 1; i < 6; i++) {
+    $("#search-history").append(buildSearchedCities(i));
+    $("#5-day-cards").append(buildForecastCards(i));
+}
+
 
 //obtained API key
 const APIkey = "f2433f0a4f99b3452dffd4c97403b276";
 
 //following function will get access the database and obtain all needed information
 function getWeatherStats(city) {
-
+    
     //URL used to query the database
     const query = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIkey}`;
-
+    
     // Create an AJAX call to retrieve data
     $.ajax({
         method: "GET",
         url: query,
     }).then(function (weather) {
         $("#city-name").text(weather.name);
-        $("#current-temp").text("Temp(F): " + kelvinToF(weather.main.temp) + " F");
+        $("#current-temp").text("Temp: " + kelvinToF(weather.main.temp) + " F");
         $("#current-humidity").text("Humidity: " + weather.main.humidity + "%");
         $("#current-windspeed").text("Wind: " + weather.wind.speed + " MPH");
 
         // to get the UV index, make a seperate call using latitude and longitude
         var lon = weather.coord.lon;
         var lat = weather.coord.lat;
-        const uvQuery = `https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=${APIkey}`;
+
+        // const uvQuery = `https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=${APIkey}`;
+        const secondQuery = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&appid=${APIkey}`
 
         $.ajax({
             method: "GET",
-            url: uvQuery,
+            url: secondQuery,
         }).then(function (location) {
-            var uvIndex = location.value;
+
+            var uvIndex = location.current.uvi
             $("#current-uv").text(uvIndex);
             if (uvIndex <= 2) {
                 $("#current-uv").addClass("badge-success");
@@ -60,10 +69,19 @@ function getWeatherStats(city) {
             } else {
                 $("#current-uv").addClass("badge-danger");
             }
+
+            var dailyCast = location.daily
+            for (let i = 0; i < 5; i++) {
+                //iterate through the database and update the day cards
+                $(`#temp-${i+1}`).val("Temp: "+ KelvinToF(dailyCast[i].temp.day)+ " F");
+                $(`#humidity-${i+1}`).val("Humidity: " + dailyCast[i].humidity + "%");
+            }
         });
     });
 
     // https://api.openweathermap.org/data/2.5/weather?q=Phoenix,USA&appid=f2433f0a4f99b3452dffd4c97403b276
+
+    // https://api.openweathermap.org/data/2.5/onecall?lat=33.45&lon=-112.07&exclude=current,minutely,hourly,alerts&appid=f2433f0a4f99b3452dffd4c97403b276
 }
 
 
@@ -72,24 +90,18 @@ function kelvinToF(k) {
     return ((k - 273.15) * 1.8 + 32).toFixed(2);
 }
 
-//for loop that will add content to page
-for (let i = 0; i < 6; i++) {
-    $("#search-history").append(buildSearchedCities(i));
-}
-
-
 function buildSearchedCities(city) {
     const searchedCity = $("<li>")
         .addClass("list-group-item")
         .attr("id", `city-${city}`)
-    
+
     return searchedCity;
 
 }
 
 //Below function will build 5-day forecast cards dynamically and append to HTML.
-function renderForecastCards(dayNum) {
-    
+function buildForecastCards(dayNum) {
+
     //create Day card
     const dayCard = $("<div>")
         .addClass("col mb-4")
@@ -113,18 +125,16 @@ function renderForecastCards(dayNum) {
     //image will display depending on weather
     const cardImg = $("<img>")
         .addClass("card-img-top")
-        .attr({"src": "", "id": `img-${dayNum}`});
+        .attr({ "src": "", "alt": "...", "id": `img-${dayNum}` });
 
     //Temperature of specified day
     const dayTemp = $("<p>")
         .addClass("card-text")
-        .text("Temp: ")
         .attr("id", `temp-${dayNum}`);
-    
+
     //Humidity of specified day
     const dayHumidity = $("<p>")
         .addClass("card-text")
-        .text("Humidity: ")
         .attr("id", `humidity-${dayNum}`);
 
     //appending stats inside of the card body, then to the container, then the card column div.
