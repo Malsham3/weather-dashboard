@@ -3,29 +3,24 @@
 // Use ajax to retreive data. DONE 
 // get all the stats. DONE
 //access time date using linux // refer to previous homework DONE 
-//create render cards for 5 day forecast 
-//create render current city card forecast
+//create render cards for 5 day forecast DONE
+//create render current city card forecast DONE 
 //create search history section with rows that store previously stored cities " use local storage to save prev searched, wont disappear after page load"
 //Search field with a button, and event listener.
-
-
-//using luxon, obtain current date
-// const today = luxon.DateTime.local().toFormat("ff");
-// const hour = parseInt(luxon.DateTime.local().toLocaleString(luxon.DateTime.TIME_24_SIMPLE));
-// dt.toLocaleString(DateTime.DATE_SHORT)
 
 //once done, edit styling / colors.
 
 // api.openweathermap.org/data/2.5/forecast?q=Phoenix%AZ&appid=f2433f0a4f99b3452dffd4c97403b276
 
-// CONTINUE RENDERING!!!!!!!!! LINE 81 AND THE FOR LOOP
-
 const today = luxon.DateTime.local().toFormat("cccc D");
 $("#today-date").text(today);
+
+// luxon.DateTime.local().plus({ days: 1 }).toFormat("cccc D");
 
 for (let i = 1; i < 6; i++) {
     $("#search-history").append(buildSearchedCities(i));
     $("#5-day-cards").append(buildForecastCards(i));
+    $(`#heading-${i}`).text(luxon.DateTime.local().plus({ days: i }).toFormat("D"));
 }
 
 
@@ -125,7 +120,7 @@ function buildForecastCards(dayNum) {
     //create Day card
     const dayCard = $("<div>")
         .attr("id", `dayCard-${dayNum}`)
-        .addClass("col mb-4");
+        .addClass("col my-3");
 
     //card container that'll contain the body and stats divs.
     const cardContainer = $("<div>")
@@ -135,27 +130,27 @@ function buildForecastCards(dayNum) {
     //card body will contain date, image, temperature and humidity stats
     const cardBody = $("<div>")
         .attr("id", `cardBody-${dayNum}`)
-        .addClass("text-center");
+        .addClass("text-center bg-light");
 
     //Heading will display the date
     const cardHeading = $("<h5>")
         .attr("id", `heading-${dayNum}`)
-        .addClass("card-title");
+        .addClass("card-title mt-3");
 
     //image will display depending on weather
     const cardImg = $("<img>")
-        .addClass("card-img-top w-50")
-        .attr({ "alt": "...", "id": `img-${dayNum}` });
+        .addClass("card-img-top w-50 mt-3")
+        .attr("id", `img-${dayNum}`);
 
     //Temperature of specified day
     const dayTemp = $("<p>")
         .attr("id", `temp-${dayNum}`)
-        .addClass("card-text");
+        .addClass("card-text my-3");
 
     //Humidity of specified day
     const dayHumidity = $("<p>")
         .attr("id", `humidity-${dayNum}`)
-        .addClass("card-text"); 
+        .addClass("card-text mb-3"); 
 
     //appending stats inside of the card body, then to the container, then the card column div.
     cardBody.append(cardHeading, cardImg, dayTemp, dayHumidity);
