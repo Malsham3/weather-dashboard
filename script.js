@@ -8,9 +8,7 @@
 //create search history section with rows that store previously stored cities " use local storage to save prev searched, wont disappear after page load"
 //Search field with a button, and event listener.
 
-//once done, edit styling / colors.
-
-// api.openweathermap.org/data/2.5/forecast?q=Phoenix%AZ&appid=f2433f0a4f99b3452dffd4c97403b276
+//once done, edit styling / colors. DONE
 
 const today = luxon.DateTime.local().toFormat("cccc D");
 $("#today-date").text(today);
@@ -21,6 +19,9 @@ for (let i = 1; i < 6; i++) {
     $("#search-history").append(buildSearchedCities(i));
     $("#5-day-cards").append(buildForecastCards(i));
     $(`#heading-${i}`).text(luxon.DateTime.local().plus({ days: i }).toFormat("D"));
+    var savedSearch = localStorage.getItem(i)
+    var listId = $(`#${i}`);
+    listId.text(savedSearch);
 }
 
 
@@ -68,9 +69,6 @@ function getWeatherStats(city) {
             //access the database 
             var dailyCast = location.daily
             var sky = dailyCast[0].weather[0].main
-            
-            console.log(dailyCast);
-            console.log(sky);
 
             //iterate through the database and update the stats inside of the 5 day cast cards.
             for (let i = 0; i < 5; i++) {
@@ -108,7 +106,7 @@ function kelvinToF(k) {
 function buildSearchedCities(city) {
     const searchedCity = $("<li>")
         .addClass("list-group-item")
-        .attr("id", `city-${city}`)
+        .attr("id", `${city}`)
 
     return searchedCity;
 
@@ -162,3 +160,23 @@ function buildForecastCards(dayNum) {
 }
 
 getWeatherStats("Phoenix,USA");
+
+//Search History section
+//add button listener to search button.
+//start an object array (contining 5 numbered items) and save inside local storage
+// Everytime the button is clicked, push input inside of local storage object.
+//                                 , save user input and trigger getWeatherStats function with city name
+// 
+// refer to each item index inside of the search history row.
+// at the start of the page, retrieve those items. (if any) localStorage.getItem(i,"") insidea forLoop at start of this script. 
+
+//save button (click) event listener
+$(".btn").on("click", function (e) {
+    e.preventDefault();
+
+    var searchedCity = $(this).siblings(".user-input").val();
+    var searchedIndex = $(".list-group-item").attr("id");
+
+    localStorage.setItem(searchedIndex, searchedCity);
+
+})
