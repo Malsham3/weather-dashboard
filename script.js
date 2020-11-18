@@ -59,7 +59,7 @@ function getWeatherStats(city) {
             method: "GET",
             url: secondQuery,
         }).then(function (location) {
-
+            
             var uvIndex = location.current.uvi
             $("#current-uv").text(uvIndex);
             if (uvIndex <= 2) {
@@ -70,12 +70,32 @@ function getWeatherStats(city) {
                 $("#current-uv").addClass("badge-danger");
             }
 
+            //access the database 
             var dailyCast = location.daily
+            var sky = dailyCast[0].weather[0].main
+            
+            console.log(dailyCast);
+            console.log(sky);
+
+            //iterate through the database and update the stats inside of the 5 day cast cards.
             for (let i = 0; i < 5; i++) {
-                //iterate through the database and update the day cards
-                $(`#temp-${i+1}`).val("Temp: "+ KelvinToF(dailyCast[i].temp.day)+ " F");
-                $(`#humidity-${i+1}`).val("Humidity: " + dailyCast[i].humidity + "%");
+                $(`#temp-${i+1}`).text("Temp: "+ ((dailyCast[i].temp.day - 273.15) * 1.80 + 32).toFixed(2) + " F");
+                $(`#humidity-${i+1}`).text("Humidity: " + dailyCast[i].humidity + "%");
+
+                //Check weather for description of (Clear, Clouds, Rain) and update card image accordingly.
+                
+                if(dailyCast[i].weather[0].main === "Clear"){
+                    $(`#img-${i+1}`).attr("src", "https://www.flaticon.com/svg/static/icons/svg/869/869869.svg")
+                }else if(dailyCast[i].weather[0].main === "Clouds"){
+                    $(`#img-${i+1}`).attr("src", "https://www.flaticon.com/svg/static/icons/svg/414/414927.svg")
+                }else if(dailyCast[i].weather[0].main === "Rain"){
+                    $(`#img-${i+1}`).attr("src", "https://www.flaticon.com/svg/static/icons/svg/3520/3520675.svg")
+                }else if(dailyCast[i].weather[0].main === "Snow"){
+                    $(`#img-${i+1}`).attr("src", "https://www.flaticon.com/svg/static/icons/svg/2336/2336319.svg")
+                }
+
             }
+
         });
     });
 
@@ -104,38 +124,38 @@ function buildForecastCards(dayNum) {
 
     //create Day card
     const dayCard = $("<div>")
-        .addClass("col mb-4")
-        .attr("id", `dayCard-${dayNum}`);
+        .attr("id", `dayCard-${dayNum}`)
+        .addClass("col mb-4");
 
     //card container that'll contain the body and stats divs.
     const cardContainer = $("<div>")
-        .addClass("card")
-        .attr("id", `cardContainer-${dayNum}`);
+        .attr("id", `cardContainer-${dayNum}`)
+        .addClass("card");
 
     //card body will contain date, image, temperature and humidity stats
     const cardBody = $("<div>")
-        .addClass("")
-        .attr("id", `cardBody-${dayNum}`);
+        .attr("id", `cardBody-${dayNum}`)
+        .addClass("text-center");
 
     //Heading will display the date
     const cardHeading = $("<h5>")
-        .addClass("card-title")
-        .attr("id", `heading-${dayNum}`);
+        .attr("id", `heading-${dayNum}`)
+        .addClass("card-title");
 
     //image will display depending on weather
     const cardImg = $("<img>")
-        .addClass("card-img-top")
-        .attr({ "src": "", "alt": "...", "id": `img-${dayNum}` });
+        .addClass("card-img-top w-50")
+        .attr({ "alt": "...", "id": `img-${dayNum}` });
 
     //Temperature of specified day
     const dayTemp = $("<p>")
-        .addClass("card-text")
-        .attr("id", `temp-${dayNum}`);
+        .attr("id", `temp-${dayNum}`)
+        .addClass("card-text");
 
     //Humidity of specified day
     const dayHumidity = $("<p>")
-        .addClass("card-text")
-        .attr("id", `humidity-${dayNum}`);
+        .attr("id", `humidity-${dayNum}`)
+        .addClass("card-text"); 
 
     //appending stats inside of the card body, then to the container, then the card column div.
     cardBody.append(cardHeading, cardImg, dayTemp, dayHumidity);
