@@ -60,7 +60,7 @@ function getWeatherStats(city) {
             $("#current-uv").text(uvIndex);
             if (uvIndex <= 2) {
                 $("#current-uv").addClass("badge-success");
-            } else if (uvIndex < 8) {
+            } else if (uvIndex < 5) {
                 $("#current-uv").addClass("badge-warning");
             } else {
                 $("#current-uv").addClass("badge-danger");
@@ -180,7 +180,11 @@ $(".btn").on("click", function (e) {
     getWeatherStats(searchedCity);
     
     //adding user input as a string inside of our empty array searchedCities
+    if(searchedCities.length <5){
     searchedCities.push(searchedCity)
+    }else{
+        searchedCities.pop()
+    }
 
     //store the length of the array inside of index
     //so that we can access each city in the order (index) it was added.
