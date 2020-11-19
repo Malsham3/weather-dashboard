@@ -21,4 +21,4 @@ With the features discussed above, users / travelers have easy access to weather
 GitHub repository link: https://github.com/Malsham3/weather-dashboard
 Deployed application link: https://malsham3.github.io/weather-dashboard/
 Screenshot of the application in use: 
-![screencapture-file-Users-malshammary-code-homework-weather-dashboard-index-html-2020-11-18-23_23_38](https://user-images.githubusercontent.com/73148818/99629959-3a324a00-29f6-11eb-8890-3714fb9233a9.png)
+![screencapture-file-Users-malshammary-code-homework-weather-dashboard-index-html-2020-11-18-23_35_53](https://user-images.githubusercontent.com/73148818/99630315-df4d2280-29f6-11eb-8fbb-87c32ca2ad99.png)
