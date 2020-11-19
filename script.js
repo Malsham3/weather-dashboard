@@ -97,7 +97,6 @@ function getWeatherStats(city) {
     // https://api.openweathermap.org/data/2.5/onecall?lat=33.45&lon=-112.07&exclude=current,minutely,hourly,alerts&appid=f2433f0a4f99b3452dffd4c97403b276
 }
 
-
 // Convert from Kelvin to Fahrenheit
 function kelvinToF(k) {
     return ((k - 273.15) * 1.8 + 32).toFixed(2);
@@ -107,6 +106,14 @@ function buildSearchedCities(city) {
     const searchedCity = $("<li>")
         .addClass("list-group-item")
         .attr("id", `${city}`)
+
+    // const hyperLink = $("<a>")
+    //     .attr("id", `link-${city}`);
+    
+    const hyperButton = $("<span>")
+        .attr("id", `btn-${city}`);
+
+    searchedCity.append(hyperButton);
 
     return searchedCity;
 
@@ -159,24 +166,29 @@ function buildForecastCards(dayNum) {
     return dayCard
 }
 
-getWeatherStats("Phoenix,USA");
+//create an empty array.
+var searchedCities = []
 
-//Search History section
-//add button listener to search button.
-//start an object array (contining 5 numbered items) and save inside local storage
-// Everytime the button is clicked, push input inside of local storage object.
-//                                 , save user input and trigger getWeatherStats function with city name
-// 
-// refer to each item index inside of the search history row.
-// at the start of the page, retrieve those items. (if any) localStorage.getItem(i,"") insidea forLoop at start of this script. 
-
-//save button (click) event listener
+//save button event listener
 $(".btn").on("click", function (e) {
     e.preventDefault();
-
+    
+    //getting user input
     var searchedCity = $(this).siblings(".user-input").val();
-    var searchedIndex = $(".list-group-item").attr("id");
+    
+    //displaying the stats
+    getWeatherStats(searchedCity);
+    
+    //adding user input as a string inside of our empty array searchedCities
+    searchedCities.push(searchedCity)
 
-    localStorage.setItem(searchedIndex, searchedCity);
+    //store the length of the array inside of index
+    //so that we can access each city in the order (index) it was added.
+    var index = searchedCities.length
 
+    //user input is then added in search history section
+    $(`#${index}`).text(searchedCity)
+
+    //using the searchedCities array, we push values to the local storage
+    localStorage.setItem(JSON.stringify(index), searchedCities[index-1])
 })
