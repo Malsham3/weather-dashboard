@@ -13,15 +13,36 @@
 const today = luxon.DateTime.local().toFormat("cccc D");
 $("#today-date").text(today);
 
-// luxon.DateTime.local().plus({ days: 1 }).toFormat("cccc D");
+var searchedCount = localStorage.length;
 
-for (let i = 1; i < 6; i++) {
+for (let i = 1; i <= searchedCount; i++) {
     $("#search-history").append(buildSearchedCities(i));
-    $("#5-day-cards").append(buildForecastCards(i));
-    $(`#heading-${i}`).text(luxon.DateTime.local().plus({ days: i }).toFormat("D"));
     var savedSearch = localStorage.getItem(i)
     var listId = $(`#${i}`);
-    listId.text(savedSearch);
+    listId.addClass("searched-city");
+    listId.text(" ‣ " + savedSearch);
+}
+
+function buildSearchedCities(city) {
+    const searchedCity = $("<p>")
+        .addClass("mt-3")
+        .attr("id", `${city}`)
+
+    // const hyperLink = $("<a>")
+    //     .attr("id", `link-${city}`);
+    
+    const hyperButton = $("<button>")
+        .attr("id", `btn-${city}`);
+
+    searchedCity.append(hyperButton);
+
+    return searchedCity;
+
+}
+
+for (let i = 1; i < 6; i++) {
+    $("#5-day-cards").append(buildForecastCards(i));
+    $(`#heading-${i}`).text(luxon.DateTime.local().plus({ days: i }).toFormat("D"));
 }
 
 
@@ -91,10 +112,6 @@ function getWeatherStats(city) {
 
         });
     });
-
-    // https://api.openweathermap.org/data/2.5/weather?q=Phoenix,USA&appid=f2433f0a4f99b3452dffd4c97403b276
-
-    // https://api.openweathermap.org/data/2.5/onecall?lat=33.45&lon=-112.07&exclude=current,minutely,hourly,alerts&appid=f2433f0a4f99b3452dffd4c97403b276
 }
 
 // Convert from Kelvin to Fahrenheit
@@ -102,22 +119,6 @@ function kelvinToF(k) {
     return ((k - 273.15) * 1.8 + 32).toFixed(2);
 }
 
-function buildSearchedCities(city) {
-    const searchedCity = $("<li>")
-        .addClass("list-group-item")
-        .attr("id", `${city}`)
-
-    // const hyperLink = $("<a>")
-    //     .attr("id", `link-${city}`);
-    
-    const hyperButton = $("<span>")
-        .attr("id", `btn-${city}`);
-
-    searchedCity.append(hyperButton);
-
-    return searchedCity;
-
-}
 
 //Below function will build 5-day forecast cards dynamically and append to HTML.
 function buildForecastCards(dayNum) {
@@ -135,7 +136,7 @@ function buildForecastCards(dayNum) {
     //card body will contain date, image, temperature and humidity stats
     const cardBody = $("<div>")
         .attr("id", `cardBody-${dayNum}`)
-        .addClass("text-center bg-light");
+        .addClass("text-center bg-light five-day-card");
 
     //Heading will display the date
     const cardHeading = $("<h5>")
@@ -191,7 +192,7 @@ $(".btn").on("click", function (e) {
     var index = searchedCities.length
 
     //user input is then added in search history section
-    $(`#${index}`).text(searchedCity)
+    $(`#${index}`).text(" ‣ " + searchedCity)
 
     //using the searchedCities array, we push values to the local storage
     localStorage.setItem(JSON.stringify(index), searchedCities[index-1])

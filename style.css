@@ -1,0 +1,84 @@
+body,
+html {
+  height: 100%;
+}
+
+body {
+  font-family: Geneva, Tahoma, Verdana, sans-serif;
+}
+
+.bg {
+  /* The image used */
+  background-image: url("weatherdashboard-bg.jpg");
+
+  height: 100%;
+  overflow-x: hidden;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#site-name {
+  font-family: Futura, Trebuchet MS, Arial, sans-serif;
+  font-size: 25px;
+}
+
+.cards, #searched {
+  background: rgba(245, 245, 245, 0.8);
+  border-radius: 10px;
+}
+
+#searched-header {
+    font-family: Futura, Trebuchet MS, Arial, sans-serif;
+    font-weight: 600;
+    padding-top: 18px;
+    border-bottom-style: outset;
+}
+
+.searched-city {
+  font-size: 21px;
+  background: rgba(245, 245, 245, 0);
+
+}
+
+.header {
+  font-family: Futura, Trebuchet MS, Arial, sans-serif;
+  font-weight: bolder;
+  font-size: 22px;
+  color: rgb(56, 56, 56);
+  background: rgba(163, 187, 187, 0.6);
+}
+
+#city-name,
+#site-name {
+    font-family: Futura, Trebuchet MS, Arial, sans-serif;
+  font-weight: 700;
+}
+
+#temp,
+#humidity,
+#windspeed,
+#uvindex {
+  font-size: 23px;
+  font-weight: 800;
+}
+
+#current-temp,
+#current-humidity,
+#current-windspeed,
+#current-uv {
+  font-size: 19px;
+}
+
+.five-day-title {
+  font-family: Futura, Trebuchet MS, Arial, sans-serif;
+  font-weight: bolder;
+  font-size: 25px;
+  color: rgb(56, 56, 56);
+}
+
+.five-day-card {
+    border-radius: 10px;
+}
