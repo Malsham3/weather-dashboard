@@ -127,7 +127,6 @@ function kelvinToF(k) {
 
 //Below function will build 5-day forecast cards dynamically and append to HTML.
 function buildForecastCards(dayNum) {
-
   //create Day card
   const dayCard = $("<div>")
     .attr("id", `dayCard-${dayNum}`)
@@ -177,32 +176,44 @@ $(".btn").on("click", function (e) {
   e.preventDefault();
 
   //getting user input
-  var searchedCity = $(this).siblings(".user-input").val();
+  var searchedCity = $(this).siblings(".user-input").val().toUpperCase();
 
-  
   //displaying the stats
   getWeatherStats(searchedCity);
-  
+
+  //create an empty array and save current saved cities in local storage
+  var searchedCities = [];
+  for (let i = 0; i < searchedCount; i++) {
+    searchedCities[i] = localStorage.getItem(i + 1);
+  }
+
   //localStorage work
-  localStorage.setItem(searchedCount + 1, searchedCity);
-  
-  searchedCount++;
-  
+  //if city has already been searched, dont add to localStorage to avoid repetition of values.
+  if (
+    !searchedCities.find(function (city) {
+      return city === searchedCity;
+    })
+  ) {
+    localStorage.setItem(searchedCount + 1, searchedCity);
+
+    searchedCount++;
+  }
   //get the latest search history
   updateSearched();
 
   //empty input field
-    $("#search-form").val('');
+  $("#search-form").val("");
 });
 
+//updates the search history section with the latest data from local storage.
 function updateSearched() {
   if (searchedCount > 0) {
-      for (let i = 0; i <= searchedCount; i++) {
-        $("#search-history").append(buildSearchedCities(i + 1));
-        var savedSearch = localStorage.getItem(i);
-        var listId = $(`#${i}`);
-        listId.addClass("searched-city");
-        listId.text(" ‣ " + savedSearch);
-      }
+    for (let i = 0; i <= searchedCount; i++) {
+      $("#search-history").append(buildSearchedCities(i + 1));
+      var savedSearch = localStorage.getItem(i);
+      var listId = $(`#${i}`);
+      listId.addClass("searched-city");
+      listId.text(" ‣ " + savedSearch);
+    }
   }
 }
