@@ -1,15 +1,3 @@
-// obtain API key and research about the paramemters. DONE
-//access the API in the script and make sure it's working properly.
-// Use ajax to retreive data. DONE
-// get all the stats. DONE
-//access time date using linux // refer to previous homework DONE
-//create render cards for 5 day forecast DONE
-//create render current city card forecast DONE
-//create search history section with rows that store previously stored cities " use local storage to save prev searched, wont disappear after page load"
-//Search field with a button, and event listener.
-
-//once done, edit styling / colors. DONE
-
 const today = luxon.DateTime.local().toFormat("cccc D");
 $("#today-date").text(today);
 
@@ -42,6 +30,8 @@ for (let i = 1; i < 6; i++) {
 const APIkey = "f2433f0a4f99b3452dffd4c97403b276";
 
 //following function will get access the database and obtain all needed information
+// https://api.openweathermap.org/data/2.5/weather?q=phoenix&appid=f2433f0a4f99b3452dffd4c97403b276
+
 function getWeatherStats(city) {
   //URL used to query the database
   const query = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIkey}`;
@@ -60,7 +50,7 @@ function getWeatherStats(city) {
     var lon = weather.coord.lon;
     var lat = weather.coord.lat;
 
-    // const uvQuery = `https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=${APIkey}`;
+    //query URL to obtain UV index
     const secondQuery = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&appid=${APIkey}`;
 
     $.ajax({
@@ -175,17 +165,20 @@ function buildForecastCards(dayNum) {
 $(".btn").on("click", function (e) {
   e.preventDefault();
 
-  //getting user input
-  var searchedCity = $(this).siblings(".user-input").val().toUpperCase();
-
-  //displaying the stats
-  getWeatherStats(searchedCity);
-
   //create an empty array and save current saved cities in local storage
   var searchedCities = [];
   for (let i = 0; i < searchedCount; i++) {
     searchedCities[i] = localStorage.getItem(i + 1);
   }
+
+  //getting user input
+  var searchedCity = $(this).siblings(".user-input").val().toLowerCase();
+
+  //prevents empty input
+  if (!searchedCity) return;
+
+  //displaying the stats
+  getWeatherStats(searchedCity);
 
   //localStorage work
   //if city has already been searched, dont add to localStorage to avoid repetition of values.
@@ -198,6 +191,7 @@ $(".btn").on("click", function (e) {
 
     searchedCount++;
   }
+
   //get the latest search history
   updateSearched();
 
