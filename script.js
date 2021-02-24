@@ -41,7 +41,8 @@ function getWeatherStats(city) {
     method: "GET",
     url: query,
   }).then(function (weather) {
-    $("#city-name").text(weather.name);
+    $("#city-name").text(weather.name)
+    .css("border-bottom-style", "outset")
     $("#current-temp").text(kelvinToF(weather.main.temp) + " F");
     $("#current-humidity").text(weather.main.humidity + "%");
     $("#current-windspeed").text(weather.wind.speed + " MPH");

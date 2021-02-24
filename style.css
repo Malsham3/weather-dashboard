@@ -4,7 +4,8 @@ html {
 }
 
 body {
-    font-family: Lucida Grande,Lucida Sans Unicode,Lucida Sans,Geneva,Verdana,sans-serif; 
+  font-family: Lucida Grande, Lucida Sans Unicode, Lucida Sans, Geneva, Verdana,
+    sans-serif;
 }
 
 .bg {
@@ -20,8 +21,8 @@ body {
   background-size: cover;
 }
 
-.navbar{
-  background-color:rgba(34, 33, 33, 0.5);
+.navbar {
+  background-color: rgba(34, 33, 33, 0.5);
 }
 
 #site-name {
@@ -29,28 +30,29 @@ body {
   font-size: 25px;
 }
 
-#search-form, .btn{
-    height: 45px;
+#search-form,
+.btn {
+  height: 45px;
 }
 
-.cards, #searched {
+.cards,
+#searched {
   background: rgba(245, 245, 245, 0.8);
   border-radius: 10px;
 }
 
 #searched-header {
-    font-family: Futura, Trebuchet MS, Arial, sans-serif;
-    color: rgb(56, 56, 56);
-    font-size: 23px;
-    font-weight: 600;
-    padding-top: 18px;
-    border-bottom-style: outset;
+  font-family: Futura, Trebuchet MS, Arial, sans-serif;
+  color: rgb(56, 56, 56);
+  font-size: 23px;
+  font-weight: 600;
+  padding-top: 18px;
+  border-bottom-style: outset;
 }
 
 .searched-city {
   font-size: 20px;
   background: rgba(245, 245, 245, 0);
-
 }
 
 .header {
@@ -61,16 +63,20 @@ body {
   background: rgba(163, 187, 187, 0.6);
 }
 
-#city-name{
-    font-family: Futura, Trebuchet MS, Arial, sans-serif;
-    font-size: 40px;
+#city-name {
+  font-family: Futura, Trebuchet MS, Arial, sans-serif;
+  font-size: 35px;
   font-weight: 700;
 }
 
 #site-name {
-    font-family: Futura, Trebuchet MS, Arial, sans-serif;
-    font-weight: 700;
-    font-size: 30px;
+  font-family: Futura, Trebuchet MS, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 30px;
+}
+
+#todays-section{
+  padding-left: 10px;
 }
 
 #temp,
@@ -87,7 +93,7 @@ body {
 #current-windspeed,
 #current-uv {
   font-size: 19px;
-  font-weight: 600
+  font-weight: 600;
 }
 
 .five-day-title {
@@ -98,5 +104,5 @@ body {
 }
 
 .five-day-card {
-    border-radius: 10px;
+  border-radius: 10px;
 }
