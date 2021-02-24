@@ -7,7 +7,7 @@ updateSearched();
 
 // ++++++++++++ ADD HYPER LINKED CITIES HERE FOR FUTURE VISIT. +++++++++++
 function buildSearchedCities(city) {
-  const searchedCity = $("<p>").addClass("mt-3").attr("id", `${city}`);
+  var searched = $("<p>").addClass("mt-3").attr("id", `${city}`);
 
   // const hyperLink = $("<a>")
   //     .attr("id", `link-${city}`);
@@ -16,14 +16,7 @@ function buildSearchedCities(city) {
 
   //   searchedCity.append(hyperButton);
 
-  return searchedCity;
-}
-
-for (let i = 1; i < 6; i++) {
-  $("#5-day-cards").append(buildForecastCards(i));
-  $(`#heading-${i}`).text(
-    luxon.DateTime.local().plus({ days: i }).toFormat("D")
-  );
+  return searched;
 }
 
 //obtained API key
@@ -41,11 +34,12 @@ function getWeatherStats(city) {
     method: "GET",
     url: query,
   }).then(function (weather) {
-    $("#city-name").text(weather.name)
-    .css("border-bottom-style", "outset")
+    $("#city-name").text(weather.name).css("border-bottom-style", "outset");
     $("#current-temp").text(kelvinToF(weather.main.temp) + " F");
     $("#current-humidity").text(weather.main.humidity + "%");
     $("#current-windspeed").text(weather.wind.speed + " MPH");
+
+    $("#five-day-title").text("5-Day Forecast for " + weather.name);
 
     // to get the UV index, make a seperate call using latitude and longitude
     var lon = weather.coord.lon;
@@ -126,12 +120,12 @@ function buildForecastCards(dayNum) {
   //card container that'll contain the body and stats divs.
   const cardContainer = $("<div>")
     .attr("id", `cardContainer-${dayNum}`)
-    .addClass("card");
+    .addClass("day-card");
 
   //card body will contain date, image, temperature and humidity stats
   const cardBody = $("<div>")
     .attr("id", `cardBody-${dayNum}`)
-    .addClass("text-center bg-light five-day-card");
+    .addClass("text-center day-card");
 
   //Heading will display the date
   const cardHeading = $("<h5>")
@@ -162,6 +156,17 @@ function buildForecastCards(dayNum) {
   return dayCard;
 }
 
+function generateCards() {
+  $("#5-day-cards").empty();
+
+  for (let i = 1; i < 6; i++) {
+    $("#5-day-cards").append(buildForecastCards(i));
+    $(`#heading-${i}`).text(
+      luxon.DateTime.local().plus({ days: i }).toFormat("D")
+    );
+  }
+}
+
 //save button event listener
 $(".btn").on("click", function (e) {
   e.preventDefault();
@@ -173,13 +178,15 @@ $(".btn").on("click", function (e) {
   }
 
   //getting user input
-  var searchedCity = $(this).siblings(".user-input").val().toLowerCase();
+  var searchedCity = $(this).siblings(".user-input").val().toUpperCase();
 
   //prevents empty input
   if (!searchedCity) return;
 
   //displaying the stats
   getWeatherStats(searchedCity);
+
+  generateCards();
 
   //localStorage work
   //if city has already been searched, dont add to localStorage to avoid repetition of values.
@@ -203,12 +210,18 @@ $(".btn").on("click", function (e) {
 //updates the search history section with the latest data from local storage.
 function updateSearched() {
   if (searchedCount > 0) {
-    for (let i = 0; i <= searchedCount; i++) {
-      $("#search-history").append(buildSearchedCities(i + 1));
-      var savedSearch = localStorage.getItem(i);
+    for (let i = 1; i <= searchedCount; i++) {
+      $("#search-history").append(buildSearchedCities(i));
+      var savedSearch = localStorage.getItem(i).toLowerCase();
       var listId = $(`#${i}`);
+
+      var formattedCityName =
+        savedSearch.substring(0, 1).toUpperCase() + savedSearch.substring(1);
+
+      console.log(formattedCityName);
+
       listId.addClass("searched-city");
-      listId.text(" ‣ " + savedSearch);
+      listId.text(" ‣ " + formattedCityName);
     }
   }
 }

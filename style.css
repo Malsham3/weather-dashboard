@@ -96,13 +96,14 @@ body {
   font-weight: 600;
 }
 
-.five-day-title {
+#five-day-title {
   font-family: Futura, Trebuchet MS, Arial, sans-serif;
   font-weight: bolder;
   font-size: 23px;
   color: rgb(56, 56, 56);
 }
 
-.five-day-card {
-  border-radius: 10px;
+.day-card {
+  background: rgba(245, 245, 245, 0);
+  border-style: groove;
 }
