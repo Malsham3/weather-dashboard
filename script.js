@@ -34,7 +34,7 @@ function getWeatherStats(city) {
     method: "GET",
     url: query,
   }).then(function (weather) {
-    $("#city-name").text(weather.name).css("border-bottom-style", "outset");
+    $("#city-name").text(weather.name);
     $("#current-temp").text(kelvinToF(weather.main.temp) + " F");
     $("#current-humidity").text(weather.main.humidity + "%");
     $("#current-windspeed").text(weather.wind.speed + " MPH");
@@ -125,7 +125,7 @@ function buildForecastCards(dayNum) {
   //card body will contain date, image, temperature and humidity stats
   const cardBody = $("<div>")
     .attr("id", `cardBody-${dayNum}`)
-    .addClass("text-center day-card");
+    .addClass("text-center day-card py-1");
 
   //Heading will display the date
   const cardHeading = $("<h5>")
@@ -157,8 +157,13 @@ function buildForecastCards(dayNum) {
 }
 
 function generateCards() {
+  //empty old cards
   $("#5-day-cards").empty();
 
+  //add the heading to the five day forecast section
+  $("#five-section").css("display", "block")
+
+  //then add the five cards
   for (let i = 1; i < 6; i++) {
     $("#5-day-cards").append(buildForecastCards(i));
     $(`#heading-${i}`).text(

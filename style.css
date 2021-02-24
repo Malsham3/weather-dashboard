@@ -67,6 +67,7 @@ body {
   font-family: Futura, Trebuchet MS, Arial, sans-serif;
   font-size: 35px;
   font-weight: 700;
+  border-bottom-style: outset;
 }
 
 #site-name {
@@ -98,12 +99,18 @@ body {
 
 #five-day-title {
   font-family: Futura, Trebuchet MS, Arial, sans-serif;
+  text-decoration: underline;
   font-weight: bolder;
   font-size: 23px;
   color: rgb(56, 56, 56);
 }
 
+#five-section{
+  display: none;
+}
+
 .day-card {
   background: rgba(245, 245, 245, 0);
-  border-style: groove;
+  /* border-style: groove; */
+  box-shadow: 7px 7px 10px rgba(143, 142, 142, 0.164);
 }
