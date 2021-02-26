@@ -38,7 +38,8 @@ body {
 .cards,
 #searched {
   background: rgba(245, 245, 245, 0.8);
-  border-radius: 10px;
+  border-radius: 3px;
+  box-shadow: 7px 7px 10px rgb(143, 142, 142);
 }
 
 #searched-header {
@@ -63,7 +64,7 @@ body {
   background: rgba(163, 187, 187, 0.6);
 }
 
-#city-name {
+#city-name, #welcome-message {
   font-family: Futura, Trebuchet MS, Arial, sans-serif;
   font-size: 35px;
   font-weight: 700;
@@ -92,7 +93,7 @@ body {
 #current-temp,
 #current-humidity,
 #current-windspeed,
-#current-uv {
+#current-uv, #user-message {
   font-size: 19px;
   font-weight: 600;
 }

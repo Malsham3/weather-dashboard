@@ -26,7 +26,7 @@
 
     <div class="container">
     
-        <div class="row justify-content-around">
+        <div class="row justify-content-between">
 
             <!-- search history section -->
             <div id= "searched" class="col-3">
@@ -39,8 +39,15 @@
 
             <!-- Right culomn to view city name, today's cast, 5 day cast. -->
             <div class="col-8 cards">
-                <div id ="todays-section">
 
+                <div id="welcome-section">
+                    <h3 id="welcome-message" class="display-4 mt-3 ">Welcome</h3>
+                    <h4 id="today-date" class = "text-secondary"></h4>
+                    <br>
+                    <h2 id="user-message" class="mb-3">Please Enter your city of choice to view the weather forecast for today, and the next 5 days! </h2>
+                </div>
+
+                <div id ="todays-section" style = "display: none">
                     <h3 id="city-name" class="display-4 mt-3 ">Welcome</h3>
                     <h4 id="today-date" class = "text-secondary"></h4>
                     <br>

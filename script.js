@@ -1,3 +1,7 @@
+const welcomeSection = $("#welcome-section");
+const todaysSection = $("#todays-section");
+const errMSG = $("#user-message");
+
 const today = luxon.DateTime.local().toFormat("cccc D");
 $("#today-date").text(today);
 
@@ -64,7 +68,6 @@ function getWeatherStats(city) {
 
       //access the database
       var dailyCast = location.daily;
-      var sky = dailyCast[0].weather[0].main;
 
       //iterate through the database and update the stats inside of the 5 day cast cards.
       for (let i = 0; i < 5; i++) {
@@ -161,7 +164,7 @@ function generateCards() {
   $("#5-day-cards").empty();
 
   //add the heading to the five day forecast section
-  $("#five-section").css("display", "block")
+  $("#five-section").css("display", "block");
 
   //then add the five cards
   for (let i = 1; i < 6; i++) {
@@ -172,21 +175,26 @@ function generateCards() {
   }
 }
 
+//create an empty array and save current saved cities in local storage
+var searchedCities = [];
+for (let i = 0; i < searchedCount; i++) {
+  searchedCities[i] = localStorage.getItem(i + 1);
+}
+
 //save button event listener
 $(".btn").on("click", function (e) {
   e.preventDefault();
 
-  //create an empty array and save current saved cities in local storage
-  var searchedCities = [];
-  for (let i = 0; i < searchedCount; i++) {
-    searchedCities[i] = localStorage.getItem(i + 1);
-  }
-
+  
   //getting user input
   var searchedCity = $(this).siblings(".user-input").val().toUpperCase();
-
+  
   //prevents empty input
   if (!searchedCity) return;
+  
+  //swap divs
+  welcomeSection.css("display", "none");
+  todaysSection.css("display", "block");
 
   //displaying the stats
   getWeatherStats(searchedCity);
@@ -205,12 +213,14 @@ $(".btn").on("click", function (e) {
     searchedCount++;
   }
 
-  //get the latest search history
-  updateSearched();
-
   //empty input field
   $("#search-form").val("");
+
+  //get the latest search history
+  updateSearched();
 });
+
+//validates input
 
 //updates the search history section with the latest data from local storage.
 function updateSearched() {
@@ -222,8 +232,6 @@ function updateSearched() {
 
       var formattedCityName =
         savedSearch.substring(0, 1).toUpperCase() + savedSearch.substring(1);
-
-      console.log(formattedCityName);
 
       listId.addClass("searched-city");
       listId.text(" ‣ " + formattedCityName);
