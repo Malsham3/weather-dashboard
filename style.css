@@ -52,8 +52,13 @@ body {
   border-bottom-style: outset;
 }
 
+/* .searched-list-item{
+  color:black;
+} */
+
 .searched-city {
-  font-size: 23px;
+  font-size: 21px;
+  color: rgb(56, 56, 56);
   background: rgba(245, 245, 245, 0);
 }
 

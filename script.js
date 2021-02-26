@@ -174,11 +174,15 @@ function helloWorld(city) {
 function buildSearchedCities(city) {
   // var searched = $("<p>").addClass("mt-3").attr("id", `${city}`);
 
+  var listStyle = $("<p>").addClass("searched-list-item")
+
   var searched = $("<a>")
     .addClass("searched-city mt-3")
     .attr({ id: `${city}`, href: `#` });
 
-  return searched;
+  listStyle.append(searched);
+
+  return listStyle;
 }
 
 //create an empty array and save current saved cities in local storage
@@ -187,14 +191,14 @@ for (let i = 0; i < searchedCount; i++) {
   searchedCities[i] = localStorage.getItem(i + 1);
 }
 
-$("a").on("click", function (e) {
-  e.preventDefault();
+$("a").on("click", function () {
+  // e.preventDefault();
 
   //swap divs
   welcomeSection.css("display", "none");
   todaysSection.css("display", "block");
 
-  var clickedCity = this.text.substring(2);
+  var clickedCity = this.text.substring(3);
 
   //displaying the stats
   getWeatherStats(clickedCity);
@@ -248,7 +252,7 @@ function newHistory(count) {
   var formattedCityName =
     savedSearch.substring(0, 1).toUpperCase() + savedSearch.substring(1);
 
-  listId.text(" ‣ " + formattedCityName);
+  listId.text(" ‣ " + formattedCityName );
 }
 
 //updates the search history section with the latest data from local storage.
