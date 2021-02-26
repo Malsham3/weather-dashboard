@@ -4,8 +4,8 @@ html {
 }
 
 body {
-  font-family: Lucida Grande, Lucida Sans Unicode, Lucida Sans, Geneva, Verdana,
-    sans-serif;
+  font-family: Futura, Trebuchet MS, Arial, sans-serif;
+  color: rgb(56, 56, 56);
 }
 
 .bg {
@@ -25,14 +25,17 @@ body {
   background-color: rgba(34, 33, 33, 0.5);
 }
 
-#site-name {
-  font-family: Futura, Trebuchet MS, Arial, sans-serif;
-  font-size: 25px;
-}
-
 #search-form,
 .btn {
   height: 45px;
+}
+
+#main-row{
+  min-height: 300px;
+}
+
+#today-date, #todays-date{
+  font-size: 18px;
 }
 
 .cards,
@@ -43,8 +46,6 @@ body {
 }
 
 #searched-header {
-  font-family: Futura, Trebuchet MS, Arial, sans-serif;
-  color: rgb(56, 56, 56);
   font-size: 23px;
   font-weight: 600;
   padding-top: 18px;
@@ -52,29 +53,25 @@ body {
 }
 
 .searched-city {
-  font-size: 20px;
+  font-size: 23px;
   background: rgba(245, 245, 245, 0);
 }
 
 .header {
-  font-family: Futura, Trebuchet MS, Arial, sans-serif;
   font-weight: bolder;
   font-size: 22px;
-  color: rgb(56, 56, 56);
   background: rgba(163, 187, 187, 0.6);
 }
 
 #city-name, #welcome-message {
-  font-family: Futura, Trebuchet MS, Arial, sans-serif;
-  font-size: 35px;
-  font-weight: 700;
+  font-size: 26px;
+  font-weight: 600;
   border-bottom-style: outset;
 }
 
 #site-name {
-  font-family: Futura, Trebuchet MS, Arial, sans-serif;
+  font-size: 35px;
   font-weight: 700;
-  font-size: 30px;
 }
 
 #todays-section{
@@ -85,25 +82,22 @@ body {
 #humidity,
 #windspeed,
 #uvindex {
-  font-size: 23px;
-  font-weight: 800;
-  color: rgb(56, 56, 56);
+  font-size: 26px;
 }
 
 #current-temp,
 #current-humidity,
 #current-windspeed,
 #current-uv, #user-message {
-  font-size: 19px;
-  font-weight: 600;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 22px;
 }
 
 #five-day-title {
-  font-family: Futura, Trebuchet MS, Arial, sans-serif;
   text-decoration: underline;
+  text-decoration-color: gray;
   font-weight: bolder;
   font-size: 23px;
-  color: rgb(56, 56, 56);
 }
 
 #five-section{
@@ -111,7 +105,7 @@ body {
 }
 
 .day-card {
+  font-size: 19px;
   background: rgba(245, 245, 245, 0);
-  /* border-style: groove; */
   box-shadow: 7px 7px 10px rgba(143, 142, 142, 0.164);
 }

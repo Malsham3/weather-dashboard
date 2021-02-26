@@ -2,33 +2,23 @@ const welcomeSection = $("#welcome-section");
 const todaysSection = $("#todays-section");
 const errMSG = $("#user-message");
 
+//get the current date using luxon
 const today = luxon.DateTime.local().toFormat("cccc D");
+
+//display today's date
+$("#todays-date").text(today);
 $("#today-date").text(today);
 
+//get current length of localStorage
 var searchedCount = localStorage.length;
 
+//update search history section on page load
 updateSearched();
-
-// ++++++++++++ ADD HYPER LINKED CITIES HERE FOR FUTURE VISIT. +++++++++++
-function buildSearchedCities(city) {
-  var searched = $("<p>").addClass("mt-3").attr("id", `${city}`);
-
-  // const hyperLink = $("<a>")
-  //     .attr("id", `link-${city}`);
-
-  //   const hyperButton = $("<button>").attr("id", `btn-${city}`);
-
-  //   searchedCity.append(hyperButton);
-
-  return searched;
-}
 
 //obtained API key
 const APIkey = "f2433f0a4f99b3452dffd4c97403b276";
 
-//following function will get access the database and obtain all needed information
-// https://api.openweathermap.org/data/2.5/weather?q=phoenix&appid=f2433f0a4f99b3452dffd4c97403b276
-
+//following function will execute the AJAX call and get the necessary forecast data
 function getWeatherStats(city) {
   //URL used to query the database
   const query = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIkey}`;
@@ -113,7 +103,7 @@ function kelvinToF(k) {
   return ((k - 273.15) * 1.8 + 32).toFixed(2);
 }
 
-//Below function will build 5-day forecast cards dynamically and append to HTML.
+//Below function will build 5-day forecast cards 
 function buildForecastCards(dayNum) {
   //create Day card
   const dayCard = $("<div>")
@@ -159,6 +149,7 @@ function buildForecastCards(dayNum) {
   return dayCard;
 }
 
+// dynamically append 5-day cards to page.
 function generateCards() {
   //empty old cards
   $("#5-day-cards").empty();
@@ -175,14 +166,23 @@ function generateCards() {
   }
 }
 
+// ++++++++++++ ADD HYPER LINKED CITIES HERE FOR FUTURE VISIT. +++++++++++
+function buildSearchedCities(city) {
+  var searched = $("<p>").addClass("mt-3").attr("id", `${city}`);
+
+  return searched;
+}
+
 //create an empty array and save current saved cities in local storage
 var searchedCities = [];
 for (let i = 0; i < searchedCount; i++) {
   searchedCities[i] = localStorage.getItem(i + 1);
 }
 
-//save button event listener
+//search button event listener
 $(".btn").on("click", function (e) {
+
+  //prevent page reload
   e.preventDefault();
 
   
