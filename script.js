@@ -166,9 +166,11 @@ function generateCards() {
   }
 }
 
-// ++++++++++++ ADD HYPER LINKED CITIES HERE FOR FUTURE VISIT. +++++++++++
+// for future development: make this a clickable city name that will display it's stats once clicked.
 function buildSearchedCities(city) {
-  var searched = $("<p>").addClass("mt-3").attr("id", `${city}`);
+  // var searched = $("<p>").addClass("mt-3").attr("id", `${city}`);
+
+  var searched = $("<a>").addClass("searched-city mt-3").attr({"id": `${city}`, "onClick": `#`});
 
   return searched;
 }
@@ -178,6 +180,21 @@ var searchedCities = [];
 for (let i = 0; i < searchedCount; i++) {
   searchedCities[i] = localStorage.getItem(i + 1);
 }
+
+$("a").on("click", function(e) {
+  e.preventDefault();
+
+  //swap divs
+  welcomeSection.css("display", "none");
+  todaysSection.css("display", "block");
+
+  var clickedCity = this.text.substring(2);
+
+  //displaying the stats
+  getWeatherStats(clickedCity);
+
+  generateCards();
+})
 
 //search button event listener
 $(".btn").on("click", function (e) {
@@ -220,8 +237,6 @@ $(".btn").on("click", function (e) {
   updateSearched();
 });
 
-//validates input
-
 //updates the search history section with the latest data from local storage.
 function updateSearched() {
   if (searchedCount > 0) {
@@ -233,8 +248,11 @@ function updateSearched() {
       var formattedCityName =
         savedSearch.substring(0, 1).toUpperCase() + savedSearch.substring(1);
 
-      listId.addClass("searched-city");
       listId.text(" ‣ " + formattedCityName);
     }
   }
 }
+
+
+
+// PROBLEM: CREATES TWO ANCHOR TAGS PER SEARCHED CITY ON PAGE LOAD. PROBLEM GOES AFTER RELOAD AND SIMILAR TAGS BECOME ONE TAG.
