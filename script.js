@@ -103,7 +103,7 @@ function kelvinToF(k) {
   return ((k - 273.15) * 1.8 + 32).toFixed(2);
 }
 
-//Below function will build 5-day forecast cards 
+//Below function will build 5-day forecast cards
 function buildForecastCards(dayNum) {
   //create Day card
   const dayCard = $("<div>")
@@ -166,11 +166,17 @@ function generateCards() {
   }
 }
 
+function helloWorld(city) {
+  console.log(`Hello from ${city}`);
+}
+
 // for future development: make this a clickable city name that will display it's stats once clicked.
 function buildSearchedCities(city) {
   // var searched = $("<p>").addClass("mt-3").attr("id", `${city}`);
 
-  var searched = $("<a>").addClass("searched-city mt-3").attr({"id": `${city}`, "onClick": `#`});
+  var searched = $("<a>")
+    .addClass("searched-city mt-3")
+    .attr({ id: `${city}`, href: `#` });
 
   return searched;
 }
@@ -181,7 +187,7 @@ for (let i = 0; i < searchedCount; i++) {
   searchedCities[i] = localStorage.getItem(i + 1);
 }
 
-$("a").on("click", function(e) {
+$("a").on("click", function (e) {
   e.preventDefault();
 
   //swap divs
@@ -194,21 +200,19 @@ $("a").on("click", function(e) {
   getWeatherStats(clickedCity);
 
   generateCards();
-})
+});
 
 //search button event listener
 $(".btn").on("click", function (e) {
-
   //prevent page reload
   e.preventDefault();
 
-  
   //getting user input
   var searchedCity = $(this).siblings(".user-input").val().toUpperCase();
-  
+
   //prevents empty input
   if (!searchedCity) return;
-  
+
   //swap divs
   welcomeSection.css("display", "none");
   todaysSection.css("display", "block");
@@ -228,14 +232,24 @@ $(".btn").on("click", function (e) {
     localStorage.setItem(searchedCount + 1, searchedCity);
 
     searchedCount++;
+
+    //empty input field
+    $("#search-form").val("");
+
+    newHistory(searchedCount);
   }
-
-  //empty input field
-  $("#search-form").val("");
-
-  //get the latest search history
-  updateSearched();
 });
+
+function newHistory(count) {
+  $("#search-history").append(buildSearchedCities(count));
+  var savedSearch = localStorage.getItem(count).toLowerCase();
+  var listId = $(`#${count}`);
+
+  var formattedCityName =
+    savedSearch.substring(0, 1).toUpperCase() + savedSearch.substring(1);
+
+  listId.text(" ‣ " + formattedCityName);
+}
 
 //updates the search history section with the latest data from local storage.
 function updateSearched() {
@@ -252,7 +266,5 @@ function updateSearched() {
     }
   }
 }
-
-
 
 // PROBLEM: CREATES TWO ANCHOR TAGS PER SEARCHED CITY ON PAGE LOAD. PROBLEM GOES AFTER RELOAD AND SIMILAR TAGS BECOME ONE TAG.
