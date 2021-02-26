@@ -177,7 +177,7 @@ function buildSearchedCities(city) {
   var listStyle = $("<p>").addClass("searched-list-item")
 
   var searched = $("<a>")
-    .addClass("searched-city mt-3")
+    .addClass("searched-city")
     .attr({ id: `${city}`, href: `#` });
 
   listStyle.append(searched);
@@ -270,5 +270,3 @@ function updateSearched() {
     }
   }
 }
-
-// PROBLEM: CREATES TWO ANCHOR TAGS PER SEARCHED CITY ON PAGE LOAD. PROBLEM GOES AFTER RELOAD AND SIMILAR TAGS BECOME ONE TAG.

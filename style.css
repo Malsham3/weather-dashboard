@@ -46,7 +46,7 @@ body {
 }
 
 #searched-header {
-  font-size: 23px;
+  font-size: 22px;
   font-weight: 600;
   padding-top: 18px;
   border-bottom-style: outset;
@@ -57,7 +57,7 @@ body {
 } */
 
 .searched-city {
-  font-size: 21px;
+  font-size: 19px;
   color: rgb(56, 56, 56);
   background: rgba(245, 245, 245, 0);
 }
@@ -87,15 +87,26 @@ body {
 #humidity,
 #windspeed,
 #uvindex {
-  font-size: 26px;
+  font-size: 22px;
 }
 
 #current-temp,
 #current-humidity,
 #current-windspeed,
-#current-uv, #user-message {
+#current-uv {
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  font-size: 22px;
+  font-size: 19px;
+}
+
+#user-message {
+  font-size: 24px;
+  text-align: center;
+  -webkit-animation: fadein 2s;
+}
+
+@-webkit-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 #five-day-title {
