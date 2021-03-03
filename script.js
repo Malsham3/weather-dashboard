@@ -241,6 +241,8 @@ $(".btn").on("click", function (e) {
     $("#search-form").val("");
 
     newHistory(searchedCount);
+
+    searchedCities.push(searchedCity);
   }
 });
 
